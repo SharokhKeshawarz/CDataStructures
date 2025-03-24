@@ -31,32 +31,48 @@ This repository contains a generic stack implementation in C, supporting multipl
 ### Build Instructions
 To compile the project, simply run:
 ```sh
-make
+#for Unix
+make -f Makefile.unix
+```
+```sh
+#for windows
+mingw32-make -f Makefile.windows
 ```
 This will:
 - Compile the stack implementation
 - Create a static library `libstack.a`
 - Build the main executable `bin/DS.exe`
 
+
 ### Running the Program
 After building, run the executable:
 ```sh
+#for Unix and Windows
 ./bin/DS.exe
 ```
 
 ### Running Tests
 To run unit tests, execute:
 ```sh
-make test
+#for unix
+make -f Makefile.unix tests
+```
+```sh
+#for windows
+mingw32-make -f Makefile.windows tests
 ```
 This will compile and run test cases using the Unity framework.
 
 ### Cleaning the Project
 To remove compiled files:
 ```sh
-make clean
+#for unix
+make -f Makefile.unix clean
 ```
-
+```sh
+#for windows
+mingw32-make -f Makefile.windows clean
+```
 ## Contributing
 1. Fork the repository
 2. Create a new branch (`git checkout -b feature-branch`)
