@@ -1,11 +1,11 @@
-#include "stack.h"
+#include "../include/stack.h"
 
 static void grow_stack(stack_s* stack)
 {
     stack->capacity = stack->capacity * 2;
     void** temp = realloc(stack->array, stack->capacity * sizeof(void*));
     if (temp == NULL) {
-        PRINT_ERROR("Failed To Realloc Stack When Push");
+        PRINT_ERROR("Failed to realloc stack when pushed");
         return;
     }
     stack->array = temp;
@@ -35,18 +35,8 @@ static void* allocate_and_copy_string(char* data)
     return newData;
 }
 
-void* push_stack(stack_s* stack, void* data, size_t data_size)
+static void* set_new_data(stack_s* stack, void* data, size_t data_size)
 {
-    if (stack == NULL) {
-        PRINT_ERROR("Cannot Push In An Uninitialized Stack");
-        return NULL;
-    }
-    if (data == NULL) {
-        PRINT_ERROR("Data Is NULL For Push");
-        return NULL;
-    }
-    if (stack->capacity == stack->size) grow_stack(stack);
-
     void* newData = NULL;
 
     switch (stack->type) {
@@ -54,7 +44,7 @@ void* push_stack(stack_s* stack, void* data, size_t data_size)
             newData = allocate_and_copy(data, sizeof(char));
             break;
 
-        case U_CHAR:
+        case UCHAR:
             newData = allocate_and_copy(data, sizeof(unsigned char));
             break;
 
@@ -70,32 +60,35 @@ void* push_stack(stack_s* stack, void* data, size_t data_size)
             newData = allocate_and_copy(data, sizeof(short));
             break;
 
-        case U_SHORT:
+        case USHORT:
             newData = allocate_and_copy(data, sizeof(unsigned short));
             break;
 
-        case U_INT:
+        case UINT:
             newData = allocate_and_copy(data, sizeof(unsigned int));
             break;
 
         case INT:
             newData = allocate_and_copy(data, sizeof(int));
             break;
+        
+        case ENUM:
+            newData = allocate_and_copy(data, sizeof(*((int*)data)));
+            break;
 
         case LONG:
             newData = allocate_and_copy(data, sizeof(long));
             break;
 
-        case U_LONG:
+        case ULONG:
             newData = allocate_and_copy(data, sizeof(unsigned long));
             break;
-
             
         case LONG_LONG:
             newData = allocate_and_copy(data, sizeof(long long));
             break;
 
-        case U_LONG_LONG:
+        case ULONG_LONG:
             newData = allocate_and_copy(data, sizeof(unsigned long long));
             break;
 
@@ -115,11 +108,11 @@ void* push_stack(stack_s* stack, void* data, size_t data_size)
             newData = allocate_and_copy(data, sizeof(void*));
             break;
 
-        case VOID:
-            newData = data;
+        case STRUCT:
+            newData = allocate_and_copy(data, data_size);
             break;
 
-        case STRUCT:
+        case UNION:
             newData = allocate_and_copy(data, data_size);
             break;
 
@@ -128,7 +121,28 @@ void* push_stack(stack_s* stack, void* data, size_t data_size)
             return NULL;
     }
 
+    return newData;
+}
+
+void stack_push(stack_s* stack, void* data, size_t data_size)
+{
+    if (stack == NULL) {
+        PRINT_ERROR("Cannot Push In An Uninitialized Stack");
+        return;
+    }
+    if (data == NULL) {
+        PRINT_ERROR("Data Is NULL For Push");
+        return;
+    }
+    if (stack->capacity == stack->size) grow_stack(stack);
+
+    void* newData = set_new_data(stack, data, data_size);
+
+    if (newData == NULL) {
+        PRINT_ERROR("New pushed data is NULL");
+        return;
+    }
+
     stack->array[stack->size] = newData;
     stack->size++;
-    return newData;
 }

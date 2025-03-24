@@ -4,8 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/lib/stack"
+                "${workspaceFolder}/Unity",
+                "${workspaceFolder}/lib",
+                "${workspaceFolder}/lib/include"
             ],
             "defines": [
                 "_DEBUG",

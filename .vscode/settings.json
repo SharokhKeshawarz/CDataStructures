@@ -4,6 +4,8 @@
         "events.h": "c",
         "stdlib.h": "c",
         "main.h": "c",
-        "stack.h": "c"
+        "stack.h": "c",
+        "system_error": "c",
+        "stdbool.h": "c"
     }
 }

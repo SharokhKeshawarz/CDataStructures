@@ -1,19 +1,17 @@
-#include "stack.h"
+#include "../include/stack.h"
 
-void* pop_stack(stack_s* stack)
+void stack_pop(stack_s* stack)
 {
     if (stack == NULL) {
-        PRINT_ERROR("Cannot Pop In A Uninisilized Stack");
-        return NULL;
+        PRINT_ERROR("Cannot pop from an uninitialized stack");
+        return;
     }
     if (stack->size == 0) {
-        PRINT_ERROR("Cannot Pop An Empty Stack");
-        return NULL;
+        PRINT_ERROR("Cannot pop from an empty stack");
+        return;
     }
 
     void* data = stack->array[stack->size - 1];
-    stack->array[stack->size - 1] = NULL;
+    free(data);
     stack->size--;
-    
-    return data;
 }

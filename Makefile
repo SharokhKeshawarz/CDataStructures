@@ -1,37 +1,77 @@
-CC = gcc -std=c23 -g -Wall -Wextra -Wpedantic
-CFLAGS = -Iinclude -Ilib/stack -Ilib  # Add -Ilib to include lib/main.h
+# Compiler and Flags
+CC = gcc
+CFLAGS = -g -Wall -Wextra -Wpedantic -Ilib -Ilib/include -IUnity  # Include project and Unity headers
+LDFLAGS = -L. -lstack  # Link with libstack.a
 
-LDFLAGS = -L. -lmystack  # Assuming the library will be located in lib/ and named libmystack.a
-
+# Source and Object Files
 SRC = $(wildcard src/*.c)
-OBJ = $(patsubst src/%.c, bin/%.o, $(SRC))  # Place object files in bin/
+OBJ = $(patsubst src/%.c, bin/%.o, $(SRC))  # Store compiled objects in bin/
 EXEC = bin/DS.exe
 
-LIB_SRC = $(wildcard lib/stack/*.c)
-LIB_OBJ = $(patsubst lib/stack/%.c, bin/stack/%.o, $(LIB_SRC))  # Place object files for the library in bin/stack/
-LIBRARY = libmystack.a  # Output static library in the root folder (libmystack.a)
+# Library Source Files
+LIB_SRC = $(wildcard lib/**/*.c)  # Look for .c files in lib/** (all subdirectories)
+LIB_OBJ = $(patsubst lib/%.c, bin/%.o, $(LIB_SRC))  # Convert to object files in bin/
+LIBRARY = libstack.a  # Static library output
 
-# Ensure bin and bin/stack directories exist
-$(shell mkdir -p bin/stack)
+# Unity Test Files
+TEST_SRC = $(wildcard tests/*.c)
+$(info Test Files Found: $(TEST_SRC))
+TEST_OBJ = $(patsubst tests/%.c, bin/tests/%.o, $(TEST_SRC))  # Store test objects in bin/tests/
+UNITY_SRC = Unity/unity.c  # Unity framework source file
+TEST_EXEC = bin/tests/test_runner.exe  # Test executable
 
+# Ensure bin directories exist
+$(shell mkdir -p bin bin/stack bin/utils bin/tests)
+
+# Default Target: Build and Run
 all: $(EXEC)
+	@echo "Executing Program..."
+	./$(EXEC)
 
-# Compile the library object files (store in bin/stack)
-bin/stack/%.o: lib/stack/%.c
+# Compile Library Object Files
+bin/%.o: lib/%.c
+	@mkdir -p $(dir $@)  # Ensure subdirectories exist
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Create the static library (store in root folder)
+# Create Static Library
 $(LIBRARY): $(LIB_OBJ)
+	@echo "Creating Static Library $(LIBRARY)..."
 	ar rcs $@ $^
+	ranlib $@
 
-# Compile the source files for the main executable (store in bin/)
+# Compile Main Executable Object Files
 bin/%.o: src/%.c
+	@mkdir -p $(dir $@)  # Ensure subdirectories exist
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Link the object files and the library to create the executable
+# Link Executable
 $(EXEC): $(OBJ) $(LIBRARY)
+	@echo "Linking Executable $(EXEC)..."
 	$(CC) $(OBJ) $(LDFLAGS) -o $(EXEC)
 
-# Clean the compiled files
+# Compile and Run Unity Tests
+test: $(TEST_EXEC)
+	@echo "Running Tests..."
+	./$(TEST_EXEC)
+
+# Compile Test Object Files (store in bin/tests/)
+bin/tests/%.o: tests/%.c
+	@mkdir -p $(dir $@)  # Ensure subdirectories exist
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compile Test Executable
+$(TEST_EXEC): $(TEST_OBJ) $(LIBRARY) $(UNITY_SRC)
+	@echo "Compiling Tests..."
+	$(CC) $(CFLAGS) $(TEST_OBJ) $(UNITY_SRC) $(LDFLAGS) -o $(TEST_EXEC)
+
+# Recompile Everything
+re: clean all
+
+# Clean Compiled Files
 clean:
-	rm -f bin/*.o bin/stack/*.o $(EXEC) $(LIBRARY)
+	@echo "Cleaning up..."
+	rm -f bin/*.o bin/*/*.o bin/tests/*.o $(EXEC) $(LIBRARY) $(TEST_EXEC)
+	rm -R -f bin/*
+
+# PHONY to avoid conflicts with files named "clean", "all", or "test"
+.PHONY: all clean re test
