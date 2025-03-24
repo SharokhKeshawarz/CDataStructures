@@ -6,6 +6,8 @@
         "main.h": "c",
         "stack.h": "c",
         "system_error": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "utils.h": "c",
+        "stdio.h": "c"
     }
 }

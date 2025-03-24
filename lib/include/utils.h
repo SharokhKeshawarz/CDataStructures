@@ -12,6 +12,14 @@
 #include <stdbool.h>
 #include <time.h>
 
+// No Size Nedded
+#define STACK_SIZE_ZERO 0
+
+// DEREF MACRO
+#define DEREF_VOID_PTR(ptr, type) (*(type*)ptr)
+#define DEREF_VOID_PTR_STRING(ptr, type) ((type)ptr)
+#define DEREF_VOID_PTR_CUSTOM(ptr, type) ((type*)ptr)
+
 // MESSAGE
 #define COLOR_RESET   "\x1b[0m"
 #define COLOR_RED     "\x1b[31m"

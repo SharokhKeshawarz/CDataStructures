@@ -3,10 +3,6 @@
 
 #include "utils.h"
 
-#define DEREF_VOID_PTR(ptr, type) (*(type*)ptr)
-#define DEREF_VOID_PTR_STRING(ptr, type) ((type)ptr)
-#define DEREF_VOID_PTR_CUSTOM(ptr, type) ((type*)ptr)
-
 typedef enum stack_t {
     BOOL,
     

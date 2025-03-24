@@ -1,7 +1,7 @@
 #include "../lib/include/stack.h"
 
-
-int main() {
-    
+int main()
+{
+    // code here    
     return 0;
 }

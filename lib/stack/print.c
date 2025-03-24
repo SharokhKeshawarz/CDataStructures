@@ -72,7 +72,6 @@ void stack_print(void* value, stack_t type, void (*custom_print_func)(void*)) {
     }
 }
 
-
 void stack_print_all(stack_s* stack, void (*custom_print_func)(void*))
 {
     if (stack == NULL) {
@@ -80,6 +79,6 @@ void stack_print_all(stack_s* stack, void (*custom_print_func)(void*))
         return;
     }
 
-    for (size_t i = 0; i < stack->size; i++)
-        stack_print(stack->array[i], stack->type, custom_print_func);
+    for (size_t i = stack->size; i > 0; i--)
+        stack_print(stack->array[i - 1], stack->type, custom_print_func);
 }
