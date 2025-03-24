@@ -13,52 +13,63 @@ This repository contains a generic stack implementation in C, supporting multipl
 ## Directory Structure
 ```
 .
-├── src/          # Source code for stack implementation
-├── lib/          # Library source code
-├── include/      # Header files
-├── tests/        # Unit tests
-├── Unity/        # Unity testing framework
-├── bin/          # Compiled binaries and object files
-├── Makefile      # Build system
-└── README.md     # This file
+├── src/             # Can code here if you want
+├── lib/             # Source code for stack implementation
+    .
+    ├── include/     # Header files for the data structures
+    ├── stack/       # Stack implementation
+    └── utils/       # Utility functions
+├── include/         # Header files
+├── tests/           # Unit tests
+├── bin/             # Compiled binaries and object files
+├── Makefile.unix    # Build system for Linux/MacOs
+├── Makefile.windows # Build system for Windows
+├── .gitignore       # Ignores some files to github
+└── README.md        # This file
 ```
 
 ## Installation and Usage
 ### Prerequisites
 - GCC compiler
 - Make
+- Mingw (windows users only)
 
 ### Build Instructions
-To compile the project, simply run:
+To compile for UNIX the project, simply run:
 ```sh
-#for Unix
 make -f Makefile.unix
-```
-```sh
-#for windows
-mingw32-make -f Makefile.windows
 ```
 This will:
 - Compile the stack implementation
 - Create a static library `libstack.a`
-- Build the main executable `bin/DS.exe`
+- Build the main executable `bin/DS`
 
+To compile for Windows the project, simply run:
+```sh
+mingw32-make -f Makefile.windows
+```
+This will:
+- Compile the stack implementation
+- Create a static library `libstack.lib`
+- Build the main executable `bin/DS.exe`
 
 ### Running the Program
 After building, run the executable:
 ```sh
-#for Unix and Windows
+# unix
+./bin/DS
+# windows
 ./bin/DS.exe
 ```
 
 ### Running Tests
 To run unit tests, execute:
 ```sh
-#for unix
+# unix
 make -f Makefile.unix tests
 ```
 ```sh
-#for windows
+# windows
 mingw32-make -f Makefile.windows tests
 ```
 This will compile and run test cases using the Unity framework.
@@ -66,11 +77,11 @@ This will compile and run test cases using the Unity framework.
 ### Cleaning the Project
 To remove compiled files:
 ```sh
-#for unix
+# unix
 make -f Makefile.unix clean
 ```
 ```sh
-#for windows
+# windows
 mingw32-make -f Makefile.windows clean
 ```
 ## Contributing
@@ -82,4 +93,3 @@ mingw32-make -f Makefile.windows clean
 
 ## License
 This project is licensed under the MIT License - see the `LICENSE` file for details.
-
