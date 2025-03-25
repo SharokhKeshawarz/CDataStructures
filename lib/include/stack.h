@@ -5,24 +5,26 @@
 
 typedef enum stack_t {
     BOOL,
-    
+
     CHAR,
     UCHAR,
-    
+
     SHORT,
     USHORT,
+
     INT,
     UINT,
+
     LONG,
     ULONG,
     LONG_LONG,
     ULONG_LONG,
-    
+
     FLOAT,
     DOUBLE,
     LONG_DOUBLE,
+
     POINTER,
-    
     STRING,
     STRUCT,
     ENUM,

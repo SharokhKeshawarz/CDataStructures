@@ -17,7 +17,7 @@ void stack_print(void* value, stack_t type, void (*custom_print_func)(void*)) {
             printf("%u\n", DEREF_VOID_PTR(value, unsigned char));
             break;
         case BOOL:
-            printf("%s\n", DEREF_VOID_PTR(value, bool) ? "true" : "false");
+            printf("%d\n", DEREF_VOID_PTR(value, bool) ? 0 : 1);
             break;
         case SHORT:
             printf("%hd\n", DEREF_VOID_PTR(value, short));

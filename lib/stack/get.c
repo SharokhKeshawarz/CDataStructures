@@ -5,6 +5,7 @@ static size_t stack_get_element_size(stack_s* stack)
     size_t element_size = 0;
 
     switch (stack->type) {
+        case BOOL:          element_size = sizeof(bool); break;
         case CHAR:          element_size = sizeof(char); break;
         case UCHAR:         element_size = sizeof(unsigned char); break;
         case SHORT:         element_size = sizeof(short); break;

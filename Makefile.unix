@@ -56,12 +56,12 @@ test: $(TEST_EXEC)
 # Compile Test Object Files (store in bin/tests/)
 bin/tests/%.o: tests/%.c
 	@mkdir -p $(dir $@)  # Ensure subdirectories exist
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -Wno-implicit-function-declaration $(CFLAGS) -c $< -o $@
 
 # Compile Test Executable
 $(TEST_EXEC): $(TEST_OBJ) $(LIBRARY)
 	@echo "Compiling Tests..."
-	$(CC) $(CFLAGS) $(TEST_OBJ) $(LDFLAGS) -o $(TEST_EXEC)
+	$(CC) -Wno-implicit-function-declaration $(CFLAGS) $(TEST_OBJ) $(LDFLAGS) -o $(TEST_EXEC)
 
 # Recompile Everything
 re: clean all
