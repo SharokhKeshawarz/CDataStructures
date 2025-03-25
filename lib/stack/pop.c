@@ -15,3 +15,8 @@ void stack_pop(stack_s* stack)
     free(data);
     stack->size--;
 }
+
+bool stack_is_empty(stack_s* stack)
+{
+    return (stack->size == 0) ? true : false;
+}

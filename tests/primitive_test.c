@@ -2,6 +2,7 @@
 
 /*
 *** This works the same with all primitive data types:
+TYPES     FORMAT SPECIFIER
 - BOOL    %d (1 or 0) || %s ("true" or "false")
 - CHAR    %c
 - UCHAR   %u
@@ -80,6 +81,37 @@ void test_char_stack_pop()
 
     // Print the stack after popping, expected output: stack: A
     stack_print_all(stack, NULL);
+
+    // Clean up the stack
+    stack_destroy(stack);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/* 
+    Function: test_char_stack_is_empty
+    Description:
+        - shows if stack is empty
+*/
+void test_char_stack_is_empty()
+{
+    PRINT_INFO("STACK PUSH");
+
+    // Create a stack with space for CHAR type data
+    stack_s* stack = stack_create(1, CHAR);
+
+    char value_1 = 'A';
+    char value_2 = 'b';
+
+    // Push two characters onto the stack
+    stack_push(stack, &value_1, STACK_SIZE_ZERO);  // Pushed A
+    stack_push(stack, &value_2, STACK_SIZE_ZERO);  // Pushed b
+
+    printf("%d\n", stack_is_empty(stack)); // 0 => false
+
+    stack_pop(stack); // poppes A
+    stack_pop(stack); // poppes b
+    
+    printf("%d\n", stack_is_empty(stack)); // 1 => true
 
     // Clean up the stack
     stack_destroy(stack);
@@ -368,6 +400,7 @@ int main()
     // Running all the test functions
     test_char_stack_push();
     test_char_stack_pop();
+    test_char_stack_is_empty();
     test_char_stack_print_all();
     test_char_stack_print_single();
     test_char_stack_get_bottom();

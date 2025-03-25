@@ -49,6 +49,8 @@ size_t stack_get_index(stack_s* stack, void* data, size_t (*compare_function)(vo
 void* stack_get_top(stack_s* stack);
 void* stack_get_bottom(stack_s* stack);
 
+bool stack_is_empty(stack_s* stack);
+
 void stack_print(void* value, stack_t type, void (*custom_print_func)(void*));
 void stack_print_all(stack_s* stack, void (*custom_print_func)(void*));
 
