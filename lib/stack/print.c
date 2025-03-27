@@ -53,7 +53,7 @@ void stack_print(void* value, stack_t type, void (*custom_print_func)(void*)) {
             printf("%Lf\n", DEREF_VOID_PTR(value, long double));
             break;
         case POINTER:
-            printf("%p\n", DEREF_VOID_PTR(value, void*));
+            printf("%p\n", value);
             break;
         case ENUM:
             printf("%d\n", DEREF_VOID_PTR(value, int));

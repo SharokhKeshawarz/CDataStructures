@@ -1,13 +1,19 @@
 #include "../lib/include/stack.h"
 
-void test_long_double_stack_push()
+typedef enum {
+    ENUM_VALUE_1 = 10,
+    ENUM_VALUE_2 = 20,
+    ENUM_VALUE_3 = 30
+} enum_t;
+
+void test_enum_stack_push()
 {
     PRINT_INFO("STACK PUSH");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
@@ -17,14 +23,14 @@ void test_long_double_stack_push()
     stack_destroy(stack);
 }
 
-void test_long_double_stack_pop()
+void test_enum_stack_pop()
 {
     PRINT_INFO("STACK POP");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
@@ -38,14 +44,14 @@ void test_long_double_stack_pop()
     stack_destroy(stack);
 }
 
-void test_long_double_stack_is_empty()
+void test_enum_stack_is_empty()
 {
     PRINT_INFO("STACK EMPTY");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
@@ -60,37 +66,37 @@ void test_long_double_stack_is_empty()
     stack_destroy(stack);
 }
 
-void test_long_double_stack_assigment()
+void test_enum_stack_assignment()
 {
     PRINT_INFO("STACK ASSIGNMENT");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
-    long double value_3 = 30.25L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
+    enum_t value_3 = ENUM_VALUE_3;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
     stack_push(stack, &value_3, STACK_SIZE_ZERO);
 
-    long double value_A = *(long double*)stack->array[0];
-    long double value_b = DEREF_VOID_PTR(stack->array[1], long double);
+    enum_t value_A = *(enum_t*)stack->array[0];
+    enum_t value_B = DEREF_VOID_PTR(stack->array[1], enum_t);
 
-    printf("Value A (bottom): %Lf\n", value_A);
-    printf("Value B (top): %Lf\n", value_b);
+    printf("Value A (bottom): %d\n", value_A);
+    printf("Value B (top): %d\n", value_B);
 
     stack_destroy(stack);
 }
 
-void test_long_double_stack_print_all()
+void test_enum_stack_print_all()
 {
     PRINT_INFO("PRINTS ALL ELEMENTS OF THE STACK");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
@@ -100,89 +106,89 @@ void test_long_double_stack_print_all()
     stack_destroy(stack);
 }
 
-void test_long_double_stack_print_single()
+void test_enum_stack_print_single()
 {
     PRINT_INFO("PRINTS SINGLE ELEMENT OF THE STACK");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
 
     printf("Raw void* data\n");
-    printf("%Lf\n", *(long double*)stack->array[0]);
-    printf("%Lf\n", *(long double*)stack->array[1]);
+    printf("%d\n", *(enum_t*)stack->array[0]);
+    printf("%d\n", *(enum_t*)stack->array[1]);
 
     printf("Using macro directly\n");
-    printf("%Lf\n", DEREF_VOID_PTR(stack->array[0], long double));
-    printf("%Lf\n", DEREF_VOID_PTR(stack->array[1], long double));
+    printf("%d\n", DEREF_VOID_PTR(stack->array[0], enum_t));
+    printf("%d\n", DEREF_VOID_PTR(stack->array[1], enum_t));
 
     stack_destroy(stack);
 }
 
-void test_long_double_stack_get_bottom()
+void test_enum_stack_get_bottom()
 {
     PRINT_INFO("GET BOTTOM ELEMENT");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
 
     void* x = stack_get_bottom(stack);
-    stack_print(x, LONG_DOUBLE, NULL);
+    stack_print(x, ENUM, NULL);
     stack_destroy(stack);
 }
 
-void test_long_double_stack_get_top()
+void test_enum_stack_get_top()
 {
     PRINT_INFO("GET TOP ELEMENT");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
 
     void* x = stack_get_top(stack);
-    stack_print(x, LONG_DOUBLE, NULL);
+    stack_print(x, ENUM, NULL);
     stack_destroy(stack);
 }
 
-void test_long_double_stack_get_data_from_index()
+void test_enum_stack_get_data_from_index()
 {
     PRINT_INFO("GET DATA FROM INDEX");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
 
     void* x = stack_get_data(stack, 1);
-    stack_print(x, LONG_DOUBLE, NULL);
+    stack_print(x, ENUM, NULL);
 
     stack_destroy(stack);
 }
 
-void test_long_double_stack_get_index_from_data()
+void test_enum_stack_get_index_from_data()
 {
     PRINT_INFO("GET INDEX FROM DATA");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10.5L;
-    long double value_2 = 20.75L;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
@@ -196,24 +202,23 @@ void test_long_double_stack_get_index_from_data()
     stack_destroy(stack);
 }
 
-void test_long_double_stack_derf_void_ptr()
+void test_enum_stack_deref_void_ptr()
 {
-    PRINT_INFO("DERFERENCE VOID POINTER USING MACRO GOOD FOR CLEAN CODE");
+    PRINT_INFO("DEREFERENCE VOID POINTER USING MACRO FOR CLEAN CODE");
 
-    stack_s* stack = stack_create(1, LONG_DOUBLE);
+    stack_s* stack = stack_create(1, ENUM);
 
-    long double value_1 = 10;
-    long double value_2 = 20;
+    enum_t value_1 = ENUM_VALUE_1;
+    enum_t value_2 = ENUM_VALUE_2;
 
     stack_push(stack, &value_1, STACK_SIZE_ZERO);
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
 
-    long double x = DEREF_VOID_PTR(stack_get_bottom(stack), long double);
-    long double y = DEREF_VOID_PTR(stack->array[1], long double);
+    enum_t x = DEREF_VOID_PTR(stack_get_bottom(stack), enum_t);
+    enum_t y = DEREF_VOID_PTR(stack->array[1], enum_t);
 
-    printf("%Lf\n", x);
-    printf("%Lf\n", y);
+    printf("%d\n", x);
+    printf("%d\n", y);
 
     stack_destroy(stack);
 }
-

@@ -28,8 +28,7 @@ typedef enum stack_t {
     STRING,
     STRUCT,
     ENUM,
-    UNION,
-    VOID_POINTER
+    UNION
 } stack_t;
 
 typedef struct stack_s {

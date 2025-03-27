@@ -40,7 +40,7 @@ void test_bool_stack_pop()
 
 void test_bool_stack_is_empty()
 {
-    PRINT_INFO("STACK PUSH");
+    PRINT_INFO("STACK EMPTY");
 
     stack_s* stack = stack_create(1, BOOL);
 
@@ -75,7 +75,6 @@ void test_bool_stack_assigment()
     stack_push(stack, &value_3, STACK_SIZE_ZERO);
 
     bool value_A = *(bool*)stack->array[0];
-    // OR
     bool value_b = DEREF_VOID_PTR(stack->array[1], bool);
 
     printf("Value A (bottom): %d\n", value_A);
@@ -149,8 +148,7 @@ void test_bool_stack_get_bottom()
 
     void* x = stack_get_bottom(stack);
     stack_print(x, BOOL, NULL);
-    // OR
-    stack_print(stack_get_bottom(stack), BOOL, NULL); // A
+    stack_print(stack_get_bottom(stack), BOOL, NULL);
 
     stack_destroy(stack);
 }
@@ -169,7 +167,6 @@ void test_bool_stack_get_top()
 
     void* x = stack_get_top(stack);
     stack_print(x, BOOL, NULL);
-    // OR
     stack_print(stack_get_top(stack), BOOL, NULL);
 
     stack_destroy(stack);
@@ -206,7 +203,6 @@ void test_bool_stack_get_index_from_data()
     stack_push(stack, &value_2, STACK_SIZE_ZERO);
 
     size_t x = stack_get_index(stack, stack_get_data(stack, 0), NULL);
-    // OR
     size_t y = stack_get_index(stack, stack->array[0], NULL);
 
     printf("%ld\n", x);

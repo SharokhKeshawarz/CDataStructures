@@ -21,7 +21,6 @@ static size_t stack_get_element_size(stack_s* stack)
         case LONG_DOUBLE:   element_size = sizeof(long double); break;
         case ENUM:          element_size = sizeof(int); break;
         case POINTER: element_size = sizeof(void*); break;
-        case VOID_POINTER: element_size = sizeof(void*); break;
         case STRING: element_size = 0; break;
         case STRUCT: element_size = 0; break;
         case UNION: element_size = 0; break;

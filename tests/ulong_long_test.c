@@ -40,7 +40,7 @@ void test_ulong_long_stack_pop()
 
 void test_ulong_long_stack_is_empty()
 {
-    PRINT_INFO("STACK PUSH");
+    PRINT_INFO("STACK EMPTY");
 
     stack_s* stack = stack_create(1, ULONG_LONG);
 
